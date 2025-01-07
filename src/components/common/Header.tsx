@@ -1,0 +1,99 @@
+"use client";
+import Image from "next/image";
+import { useState } from "react";
+import { useEffect } from "react";
+import NepaliDateConverter from "nepali-date-converter";
+import { Button } from "../ui/button";
+import Cookie from "js-cookie";
+import { useRouter } from "next/navigation";
+
+export default function Header({ lang }: { lang: string }) {
+  const [nepaliDate, setNepaliDate] = useState("");
+  const router = useRouter();
+  const toggleLanguage = () => {
+    const newLang = lang === "en" ? "ne" : "en";
+    Cookie.set("lang", newLang);
+    router.refresh();
+  };
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const nepaliDateObj = new NepaliDateConverter(currentDate);
+
+    const nepaliMonths = [
+      "बैशाख",
+      "जेष्ठ",
+      "असार",
+      "श्रावण",
+      "भाद्र",
+      "आश्विन",
+      "कार्तिक",
+      "मंसिर",
+      "पुस",
+      "माघ",
+      "फाल्गुण",
+      "चैत्र",
+    ];
+
+    // Use the correct month by subtracting 1 for zero-based array indexing
+    const formattedDate = `${
+      nepaliMonths[nepaliDateObj.getMonth()]
+    } ${nepaliDateObj.getDate()}, ${nepaliDateObj.getYear()}`;
+    setNepaliDate(formattedDate);
+  }, []);
+
+  return (
+    <header className="hidden lg:flex justify-between items-center max-w-screen-2xl mx-auto pb-6">
+      <div className="flex justify-center items-center space-y-2 flex-col">
+        <Image
+          src="/common/logo.png"
+          className="w-36 h-36 object-contain"
+          alt="10"
+          width={500}
+          height={500}
+        />
+        <p className="text-sm font-bold text-secondary-500">{nepaliDate}</p>
+      </div>
+      <div className="flex flex-col justify-center items-center space-y-4 pt-8">
+        <h2 className="text-lg font-medium">‌लुम्बिनी प्रदेश सरकार</h2>
+        <h1 className="text-secondary-500 font-semibold text-3xl">
+          सामाजिक विकास मन्‍‍त्रालय
+        </h1>
+        <h2 className="text-lg font-semibold">
+          राप्ती उपत्यका (देउखुरी), नेपाल
+        </h2>
+      </div>
+      <div className="flex flex-col justify-center items-center space-x-3">
+        <Image
+          src="/common/nepalflag.gif"
+          className="w-36 h-36 object-contain"
+          alt="10"
+          width={100}
+          height={100}
+        />
+
+        <div className="flex justify-center space-x-3 items-center ">
+          <Button
+            onClick={toggleLanguage}
+            variant="secondary"
+            className={`font-medium text-primary px-4 py-2 rounded-md bg-transparent shadow-none ${
+              lang === "en"
+            }`}
+          >
+            NP
+          </Button>
+          <span>|</span>
+          <Button
+            onClick={toggleLanguage}
+            variant="secondary"
+            className={`font-medium text-primary px-4 py-2 rounded-md ${
+              lang === "en"
+            }`}
+          >
+            ENG
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+}

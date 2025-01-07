@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
+.swiper-pagination-bullet {
+  background-color: #d9d9d9 !important;
+  opacity: 100% !important;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: #235eb8 !important;
+  width: 2rem !important;
+  height: 0.6rem !important;
+  border-radius: 0.5rem !important;
+  border: 2px white solid !important;
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
+  border-bottom-left-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.25rem !important;
+}
+.swiper-button-prev {
+  color: #fff !important;
+}
+.swiper-button-next {
+  color: #fff !important;
+}
