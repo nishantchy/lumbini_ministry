@@ -78,7 +78,7 @@ const GalleryCard = ({
   onClick,
 }: GalleryCardProps) => {
   return (
-    <Card className=" cursor-pointer" onClick={onClick}>
+    <Card className="cursor-pointer" onClick={onClick}>
       <div className="relative aspect-video w-full overflow-hidden rounded-t-lg">
         <img
           src={thumbnailUrl}

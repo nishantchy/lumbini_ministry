@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
       <NewsComponent lang={lang} />
       <MembersCard />
       <GallerySection />
-      <EventCalendar />
+      {/* <EventCalendar /> */}
     </main>
   );
 }
