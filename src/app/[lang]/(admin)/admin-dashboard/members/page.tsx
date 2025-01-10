@@ -1,7 +1,6 @@
 "use client";
-
-import { useState } from "react";
 import { Plus } from "lucide-react";
+import useSWR from "swr";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,35 +10,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import AddMemberForm from "@/components/dashboard/member/AddMemberForm";
+import { DataTable } from "@/components/common/DataTable";
 
-// Example member type - adjust according to your API
-interface Member {
-  id: string;
-  name: string;
-  email: string;
-  status: string;
-  joinedDate: string;
-}
+import { AnimatedLoader } from "@/components/common/Loader";
+import { memberColumns } from "@/config/columns/memberColumn";
+import { useMembers } from "@/services/queries";
 
 export default function MembersPage() {
-  const [members, setMembers] = useState<Member[]>([
-    {
-      id: "1",
-      name: "John Doe",
-      email: "john@example.com",
-      status: "Active",
-      joinedDate: "2024-01-15",
-    },
-  ]);
+  const { data: members, error, isLoading } = useMembers();
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <p className="text-destructive">Error loading members data.</p>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return <AnimatedLoader size={30} />;
+  }
 
   return (
     <div className="space-y-4">
@@ -65,35 +56,12 @@ export default function MembersPage() {
       </div>
 
       <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Joined Date</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {members.map((member) => (
-              <TableRow key={member.id}>
-                <TableCell>{member.name}</TableCell>
-                <TableCell>{member.email}</TableCell>
-                <TableCell>{member.status}</TableCell>
-                <TableCell>{member.joinedDate}</TableCell>
-                <TableCell className="text-right">
-                  <Button variant="ghost" size="sm">
-                    Edit
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-red-600">
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <DataTable
+          columns={memberColumns}
+          data={members || []}
+          searchKey="name"
+          searchPlaceholder="Search members..."
+        />
       </div>
     </div>
   );

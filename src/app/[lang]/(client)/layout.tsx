@@ -23,7 +23,7 @@ export default async function RootLayout({
         <Header lang={lang} />
         <Navbar lang={lang} />
         {children}
-        <Footer />
+        <Footer lang={lang} />
       </body>
     </html>
   );

@@ -145,7 +145,7 @@ export default function Navbar({ lang }: { lang: string }) {
                   <Button
                     onClick={toggleLanguage}
                     variant="secondary"
-                    className="w-full font-medium"
+                    className="w-full font-medium "
                   >
                     {lang === "en" ? "नेपाली" : "English"}
                   </Button>

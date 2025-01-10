@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import Sidebar from "@/components/dashboard/Sidebar";
 import AdminHeader from "@/components/dashboard/Header";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function AdminLayout({
           <div className="flex-1 overflow-auto">
             <AdminHeader />
             <main className="p-6">{children}</main>
+            <Toaster />
           </div>
         </div>
       </body>

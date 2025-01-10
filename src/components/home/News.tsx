@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import LinkButton from "../common/LinkButton";
 import { ChevronRight } from "lucide-react";
+import { NewsTitle } from "@/lib/titles";
 interface NewsItem {
   id: number;
   title: string;
@@ -43,35 +44,28 @@ const newsData: NewsItem[] = [
 ];
 
 export default function NewsComponent({ lang }: { lang: string }) {
-  const content = {
-    en: {
-      title: "Recent News",
-      view: "See More",
-    },
-    np: {
-      title: "हालको समाचार",
-      view: "अझै हेर्नुहोस्",
-    },
-  };
-
-  const selectedLang = content[lang as keyof typeof content] ? lang : "en";
-
   return (
     <section className="max-w-screen-xl mx-auto">
       <div className="grid grid-cols-1 items-start md:grid-cols-2">
-        <div className="flex justify-center items-start space-y-6 flex-col">
-          <h1 className="text-6xl font-bold">
-            {content[selectedLang as keyof typeof content].title}
-          </h1>
-          <p className="text-normal text-justify max-w-lg">
-            Stay updated with the most recent happenings around the world. From
-            political developments to breakthroughs in technology, we bring you
-            timely and reliable news that matters. Whether it’s about the
-            economy, society, or the environment, our coverage ensures you’re
-            always in the know.
-          </p>
-          <LinkButton href="/news" text="Read More" />
-        </div>
+        {NewsTitle.map((title) => (
+          <div
+            key={title.id}
+            className="flex justify-center items-start space-y-6 flex-col"
+          >
+            <h1 className="text-4xl font-bold">
+              {title.title[lang as keyof typeof title.title]}
+            </h1>
+            <p className="text-normal text-justify max-w-lg">
+              {title.description
+                ? title.description[lang as keyof typeof title.description]
+                : ""}
+            </p>
+            <LinkButton
+              href={title.href}
+              text={title.option[lang as keyof typeof title.option]}
+            />
+          </div>
+        ))}
         <Accordion
           type="single"
           collapsible

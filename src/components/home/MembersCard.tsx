@@ -6,8 +6,10 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { MembersTitle } from "@/lib/titles";
+import LinkButton from "../common/LinkButton";
 
-const MemberCarousel: React.FC = () => {
+const MemberCarousel = ({ lang }: { lang: string }) => {
   const members = [
     {
       name: "John Doe",
@@ -59,28 +61,23 @@ const MemberCarousel: React.FC = () => {
         "https://images.pexels.com/photos/1181395/pexels-photo-1181395.jpeg", // Example Pexels image
     },
   ];
-  const content = {
-    en: {
-      title: "Our Members",
-      view: "See More",
-    },
-    np: {
-      title: "हाम्रो सदस्यहरू",
-      view: "अझै हेर्नुहोस्",
-    },
-  };
 
   return (
     <section className="max-w-screen-xl mx-auto space-y-6 md:space-y-12 px-4 md:px-0">
-      <div className="flex justify-between items-center">
-        <h1 className="text-4xl font-bold">{content.en.title}</h1>
-        <Link
-          href="/members"
-          className="text-primary text-sm md:text-base font-semibold hover:text-primary-400"
-        >
-          {content.en.view}
-        </Link>
-      </div>
+      {MembersTitle.map((title) => (
+        <div key={title.id} className="flex justify-between items-center">
+          <h1 className="text-4xl font-bold">
+            {title.title[lang as keyof typeof title.title]}
+          </h1>
+          <Link
+            href={title.href}
+            className="text-primary hover:text-primary-400 font-semibold"
+          >
+            {title.option[lang as keyof typeof title.option]}
+          </Link>
+        </div>
+      ))}
+
       <Swiper
         slidesPerView={1}
         spaceBetween={10}
@@ -127,7 +124,7 @@ const MemberCarousel: React.FC = () => {
                     href="/members"
                     className="text-white text-sm font-semibold "
                   >
-                    {content.en.view}
+                    View More
                   </Link>
                 </div>
               </div>

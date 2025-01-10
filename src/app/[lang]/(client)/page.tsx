@@ -10,8 +10,8 @@ export default async function Page({ params }: { params: { lang: string } }) {
     <main className="space-y-6 md:space-y-12 lg:space-y-24 mb-20">
       <Hero />
       <NewsComponent lang={lang} />
-      <MembersCard />
-      <GallerySection />
+      <MembersCard lang={lang} />
+      <GallerySection lang={lang} />
       {/* <EventCalendar /> */}
     </main>
   );

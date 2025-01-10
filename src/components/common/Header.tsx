@@ -6,6 +6,7 @@ import NepaliDateConverter from "nepali-date-converter";
 import { Button } from "../ui/button";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
+import { mainTitle } from "@/lib/titles";
 
 export default function Header({ lang }: { lang: string }) {
   const [nepaliDate, setNepaliDate] = useState("");
@@ -54,14 +55,23 @@ export default function Header({ lang }: { lang: string }) {
         />
         <p className="text-sm font-bold text-secondary-500">{nepaliDate}</p>
       </div>
-      <div className="flex flex-col justify-center items-center space-y-4 pt-8">
-        <h2 className="text-lg font-medium">‌लुम्बिनी प्रदेश सरकार</h2>
-        <h1 className="text-secondary-500 font-semibold text-3xl">
-          सामाजिक विकास मन्‍‍त्रालय
-        </h1>
-        <h2 className="text-lg font-semibold">
-          राप्ती उपत्यका (देउखुरी), नेपाल
-        </h2>
+      <div>
+        {mainTitle.map((item, index) => (
+          <div
+            key={index}
+            className="flex flex-col justify-center items-center space-y-4 pt-8"
+          >
+            <h2 className="text-lg font-medium">
+              {item.province[lang as keyof typeof item.province]}
+            </h2>
+            <h1 className="text-secondary-500 font-semibold text-3xl">
+              {item.ministry[lang as keyof typeof item.ministry]}
+            </h1>
+            <h2 className="text-lg font-semibold">
+              {item.address[lang as keyof typeof item.address]}
+            </h2>
+          </div>
+        ))}
       </div>
       <div className="flex flex-col justify-center items-center space-x-3">
         <Image
