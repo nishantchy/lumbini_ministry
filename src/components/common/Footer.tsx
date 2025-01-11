@@ -26,12 +26,12 @@ export default function Footer({ lang }: { lang: string }) {
               <h2 className="text-xl font-semibold">
                 {data.title[lang as keyof typeof data.title]}
               </h2>
-              <ul className="space-y-4">
+              <ul className="space-y-2">
                 {data.links.map((link) => (
                   <li key={link.id}>
                     <Link
                       href={link.href}
-                      className="text-white hover:text-primary-400"
+                      className="text-white text-sm hover:text-primary-400"
                     >
                       {link.name[lang as keyof typeof link.name]}
                     </Link>
@@ -50,13 +50,15 @@ export default function Footer({ lang }: { lang: string }) {
 
         {/* Contact Information */}
         {contactData.map((data, index) => (
-          <div key={index} className="space-y-4">
+          <div key={index} className="space-y-2">
             <h2 className="text-xl font-semibold">
               {" "}
               {data.title[lang as keyof typeof data.title]}
             </h2>
-            <p className="text-white">ईमेल : {data.contact.email}</p>
-            <p className="text-white">फोन : {data.contact.phone.join(", ")}</p>
+            <p className="text-white text-sm">ईमेल : {data.contact.email}</p>
+            <p className="text-white text-sm">
+              फोन : {data.contact.phone.join(", ")}
+            </p>
           </div>
         ))}
       </div>

@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Image as ImageIcon } from "lucide-react";
 import Link from "next/link";
 import { GalleryTitle } from "@/lib/titles";
+import { useGallery } from "@/services/queries";
+import { AnimatedLoader } from "../common/Loader";
 
 // Sample gallery data
 const galleryData = [
@@ -102,6 +104,9 @@ const GalleryCard = ({
 };
 
 const GallerySection = ({ lang }: { lang: string }) => {
+  const { data: galleryData, isLoading, error } = useGallery();
+  if (isLoading) return <AnimatedLoader size={30} />;
+  if (error) return <div>Error loading gallery</div>;
   return (
     <section className="max-w-screen-xl mx-auto px-4 md:px-0 space-y-6 md:space-y-12">
       {GalleryTitle.map((title) => (
@@ -119,12 +124,12 @@ const GallerySection = ({ lang }: { lang: string }) => {
       ))}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {galleryData.slice(0, 4).map((gallery) => (
+        {galleryData?.slice(0, 4).map((gallery) => (
           <GalleryCard
             key={gallery.id}
             title={gallery.title}
-            imageCount={gallery.imageCount}
-            thumbnailUrl={gallery.thumbnailUrl}
+            imageCount={gallery.images.length}
+            thumbnailUrl={gallery.images[0]}
             onClick={() => console.log(`Clicked gallery: ${gallery.title}`)}
           />
         ))}

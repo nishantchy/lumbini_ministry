@@ -8,59 +8,13 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { MembersTitle } from "@/lib/titles";
 import LinkButton from "../common/LinkButton";
+import { useMembers } from "@/services/queries";
+import { AnimatedLoader } from "../common/Loader";
 
 const MemberCarousel = ({ lang }: { lang: string }) => {
-  const members = [
-    {
-      name: "John Doe",
-      jobTitle: "Software Engineer",
-      imageUrl:
-        "https://images.pexels.com/photos/1181427/pexels-photo-1181427.jpeg", // Example Pexels image
-    },
-    {
-      name: "Jane Smith",
-      jobTitle: "Product Manager",
-      imageUrl:
-        "https://images.pexels.com/photos/2204537/pexels-photo-2204537.jpeg", // Example Pexels image
-    },
-
-    {
-      name: "Bob Brown",
-      jobTitle: "Data Scientist",
-      imageUrl:
-        "https://images.pexels.com/photos/3184306/pexels-photo-3184306.jpeg", // Example Pexels image
-    },
-    {
-      name: "Charlie Davis",
-      jobTitle: "DevOps Engineer",
-      imageUrl:
-        "https://images.pexels.com/photos/1181395/pexels-photo-1181395.jpeg", // Example Pexels image
-    },
-    {
-      name: "Bob Brown",
-      jobTitle: "Data Scientist",
-      imageUrl:
-        "https://images.pexels.com/photos/3184306/pexels-photo-3184306.jpeg", // Example Pexels image
-    },
-    {
-      name: "Charlie Davis",
-      jobTitle: "DevOps Engineer",
-      imageUrl:
-        "https://images.pexels.com/photos/1181395/pexels-photo-1181395.jpeg", // Example Pexels image
-    },
-    {
-      name: "Bob Brown",
-      jobTitle: "Data Scientist",
-      imageUrl:
-        "https://images.pexels.com/photos/3184306/pexels-photo-3184306.jpeg", // Example Pexels image
-    },
-    {
-      name: "Charlie Davis",
-      jobTitle: "DevOps Engineer",
-      imageUrl:
-        "https://images.pexels.com/photos/1181395/pexels-photo-1181395.jpeg", // Example Pexels image
-    },
-  ];
+  const { data: members, error, isLoading } = useMembers();
+  if (isLoading) return <AnimatedLoader size={30} />;
+  if (error) return <div>Error loading members</div>;
 
   return (
     <section className="max-w-screen-xl mx-auto space-y-6 md:space-y-12 px-4 md:px-0">
@@ -102,7 +56,7 @@ const MemberCarousel = ({ lang }: { lang: string }) => {
         modules={[Autoplay, Pagination]}
         className="mySwiper"
       >
-        {members.map((member, index) => (
+        {members?.map((member, index) => (
           <SwiperSlide key={index}>
             <div className="relative group">
               <Image
@@ -117,7 +71,7 @@ const MemberCarousel = ({ lang }: { lang: string }) => {
               {/* Member Info */}
               <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:-translate-y-10 transition-all duration-300">
                 <p className="text-lg font-semibold">{member.name}</p>
-                <p className="text-sm">{member.jobTitle}</p>
+                <p className="text-sm">{member.post}</p>
                 {/* View More Link */}
                 <div className="mt-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-4 transition-all duration-300">
                   <Link

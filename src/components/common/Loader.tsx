@@ -7,12 +7,14 @@ interface AnimatedLoaderProps {
   size?: number;
   color?: string;
   speed?: number;
+  fullPage?: boolean;
 }
 
 export const AnimatedLoader: React.FC<AnimatedLoaderProps> = ({
   size = 40,
   color = "#3498db",
   speed = 0.7,
+  fullPage = true,
 }) => {
   const containerStyle: React.CSSProperties = {
     width: size,
@@ -59,7 +61,7 @@ export const AnimatedLoader: React.FC<AnimatedLoaderProps> = ({
     ease: "easeInOut",
   };
 
-  return (
+  const loaderContent = (
     <motion.div
       style={containerStyle}
       variants={containerVariants}
@@ -75,5 +77,19 @@ export const AnimatedLoader: React.FC<AnimatedLoaderProps> = ({
         />
       ))}
     </motion.div>
+  );
+
+  if (fullPage) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-background/80">
+        {loaderContent}
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      {loaderContent}
+    </div>
   );
 };
