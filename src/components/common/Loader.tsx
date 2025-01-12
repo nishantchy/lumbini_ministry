@@ -81,7 +81,7 @@ export const AnimatedLoader: React.FC<AnimatedLoaderProps> = ({
 
   if (fullPage) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-background/80">
+      <div className="flex items-center justify-center bg-background/80">
         {loaderContent}
       </div>
     );

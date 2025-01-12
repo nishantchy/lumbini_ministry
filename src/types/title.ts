@@ -5,7 +5,7 @@ export type TitleTypes = {
     ne: string;
   };
   href: string;
-  description: {
+  description?: {
     en: string;
     ne: string;
   };

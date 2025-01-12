@@ -61,7 +61,7 @@ export default function MembersPage() {
           columns={galleryColumns}
           data={galleries || []}
           searchKey="title"
-          searchPlaceholder="Search members..."
+          searchPlaceholder="Search gallery..."
         />
       </div>
     </div>

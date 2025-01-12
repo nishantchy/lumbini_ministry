@@ -47,7 +47,7 @@ export default function EventCalender() {
       <div>
         <Calendar
           localizer={localizer}
-          events={eventData} // Ensure eventData is correctly formatted
+          events={eventData} 
           startAccessor="start"
           endAccessor="end"
           style={{ height: 500 }}

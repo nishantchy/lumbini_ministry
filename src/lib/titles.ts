@@ -50,6 +50,21 @@ export const GalleryTitle: TitleTypes[] = [
     },
   },
 ];
+export const NoticeTitle: TitleTypes[] = [
+  {
+    id: 1,
+    title: {
+      en: "Notices",
+      ne: "सूचना",
+    },
+
+    href: "/notices",
+    option: {
+      en: "See More",
+      ne: "अझै सिक्नुहोस्",
+    },
+  },
+];
 
 export const mainTitle = [
   {

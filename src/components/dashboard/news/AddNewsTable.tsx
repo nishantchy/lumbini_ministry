@@ -15,12 +15,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+
 import { useToast } from "@/hooks/use-toast";
 import { mutate } from "swr";
+import { Textarea } from "@/components/ui/textarea";
 
 const newsSchema = z.object({
-  title: z.string().min(2, "Title must be at least 2 characters"),
-  content: z.string().min(2, "Content must be at least 2 characters"),
+  title: z
+    .string()
+    .min(2, "Title must be at least 2 characters")
+    .max(100, "Title must not exceed 100 characters"),
+  content: z
+    .string()
+    .min(2, "Content must be at least 2 characters")
+    .max(1000, "Content must not exceed 1000 characters"),
 });
 
 type NewsFormValues = z.infer<typeof newsSchema>;
@@ -40,10 +48,6 @@ export default function AddNewsForm() {
   async function onSubmit(values: NewsFormValues) {
     setIsLoading(true);
     try {
-      const formData = new FormData();
-      formData.append("title", values.title);
-      formData.append("content", values.content);
-
       const userDataString = localStorage.getItem("userData");
       const userData = userDataString ? JSON.parse(userDataString) : null;
       const token = userData?.token;
@@ -52,24 +56,24 @@ export default function AddNewsForm() {
         throw new Error("Authentication token not found");
       }
 
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-
       const response = await fetch(
         "https://lumibini-api.onrender.com/api/news",
         {
           method: "POST",
-          headers: headers,
-          body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
         }
       );
 
-      const responseData = await response.json();
-
       if (!response.ok) {
-        throw new Error(responseData.message || "Failed to add news");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to add news");
       }
+
+      const responseData = await response.json();
 
       toast({
         title: "Success",
@@ -99,7 +103,7 @@ export default function AddNewsForm() {
               <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="News Title"
+                  placeholder="Enter news title"
                   {...field}
                   disabled={isLoading}
                 />
@@ -116,8 +120,9 @@ export default function AddNewsForm() {
             <FormItem>
               <FormLabel>Content</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="News Content"
+                <Textarea
+                  placeholder="Enter news content"
+                  className="min-h-[100px]"
                   {...field}
                   disabled={isLoading}
                 />
@@ -128,7 +133,7 @@ export default function AddNewsForm() {
         />
 
         <div className="flex justify-end space-x-2">
-          <Button type="submit" disabled={isLoading} className="bg-primary">
+          <Button type="submit" disabled={isLoading}>
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

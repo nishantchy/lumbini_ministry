@@ -1,3 +1,4 @@
+import Notices from "@/components/home/Notices";
 import EventCalendar from "@/components/home/EventCalender";
 import GallerySection from "@/components/home/Gallery";
 import Hero from "@/components/home/Hero";
@@ -12,6 +13,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
       <NewsComponent lang={lang} />
       <MembersCard lang={lang} />
       <GallerySection lang={lang} />
+      <Notices lang={lang} />
       {/* <EventCalendar /> */}
     </main>
   );
