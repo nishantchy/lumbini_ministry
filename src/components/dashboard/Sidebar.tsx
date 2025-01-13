@@ -6,9 +6,11 @@ import { cn } from "@/lib/utils";
 import { adminLinks } from "@/config/admin-links";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Sidebar() {
-  //   const pathname = usePathname();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleLogout = () => {
     localStorage.removeItem("userData");
@@ -26,18 +28,21 @@ export default function Sidebar() {
         </div>
 
         <nav className="flex-1 p-4 space-y-2">
-          {adminLinks.map((link) => {
-            const Icon = link.icon;
+          {adminLinks.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
             return (
               <Link
-                key={link.href}
-                href={link.href}
+                key={item.href}
+                href={item.href}
                 className={cn(
-                  "flex items-center px-4 py-2 text-sm rounded-lg transition-colors"
+                  `flex items-center px-4 py-2 text-sm rounded-lg transition-colors  ${
+                    isActive ? "bg-primary text-white" : "text-black"
+                  }`
                 )}
               >
                 <Icon className="w-5 h-5 mr-3" />
-                {link.title}
+                {item.title}
               </Link>
             );
           })}

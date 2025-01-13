@@ -109,6 +109,12 @@ export const menuItems: MenuItem[] = [
     },
     path: "/career",
   },
+  {
+    id: 10,
+    title: {
+      en: "Contact Us",
+      ne: "सम्पर्क गर्नुहोस्",
+    },
+    path: "/contact-us",
+  },
 ];
-
-

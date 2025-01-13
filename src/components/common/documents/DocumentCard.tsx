@@ -49,7 +49,9 @@ export function DocumentCard({ notice, onClick }: DocumentCardProps) {
     <div className="border rounded-lg hover:bg-gray-50 transition-colors">
       <div className="p-4 flex flex-col items-center space-y-3">
         <PdfIcon />
-        <h3 className="text-lg font-medium text-center">{notice.title}</h3>
+        <h3 className="text-sm line-clamp-3 font-medium text-center min-h-[4rem]">
+          {notice.title}
+        </h3>
         <p className="text-sm text-gray-500 flex justify-between items-center gap-x-2">
           <Calendar className="h-4 w-4 text-primary" />
           {new Date(notice.createdAt).toLocaleDateString()}
