@@ -25,7 +25,7 @@ import { useToast } from "@/hooks/use-toast";
 import { mutate } from "swr";
 
 export type Member = {
-  id: string;
+  _id: string;
   name: string;
   post: string;
   imageUrl: string;
@@ -103,7 +103,7 @@ export const memberColumns: ColumnDef<Member>[] = [
           }
 
           const response = await fetch(
-            `https://lumibini-api.onrender.com/api/members/${member.id}`,
+            `https://lumibini-api.onrender.com/api/members/${member._id}`,
             {
               method: "DELETE",
               headers: {

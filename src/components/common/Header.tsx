@@ -74,15 +74,13 @@ export default function Header({ lang }: { lang: string }) {
         ))}
       </div>
       <div className="flex flex-col justify-center items-center space-x-3">
-        <Image
-          src="/common/nepalflag.gif"
+        <img
+          src="/common/nepal-flag.png"
+          alt="Nepal Flag"
           className="w-36 h-36 object-contain"
-          alt="10"
-          width={100}
-          height={100}
         />
 
-        <div className="flex justify-center space-x-3 items-center ">
+        <div className="flex justify-center items-center ">
           <Button
             onClick={toggleLanguage}
             variant="secondary"
@@ -90,6 +88,13 @@ export default function Header({ lang }: { lang: string }) {
               lang === "en"
             }`}
           >
+            {/* <Image
+              src="/common/nepal.svg"
+              width={20}
+              height={20}
+              className="h-10 w-10 object-contain"
+              alt="nepal"
+            /> */}
             NP
           </Button>
           <span>|</span>
@@ -100,7 +105,14 @@ export default function Header({ lang }: { lang: string }) {
               lang === "en"
             }`}
           >
-            ENG
+            {/* <Image
+              src="/common/america.svg"
+              width={30}
+              height={30}
+              className="h-8 w-8 object-contain"
+              alt="nepal"
+            /> */}
+            EN
           </Button>
         </div>
       </div>

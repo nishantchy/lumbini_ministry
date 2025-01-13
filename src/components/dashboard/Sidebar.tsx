@@ -12,6 +12,9 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("userData");
+    // Clear cookie
+    document.cookie =
+      "userData=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     window.location.href = "/accounts/login";
   };
 

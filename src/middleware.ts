@@ -6,6 +6,19 @@ export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
   const searchParams = req.nextUrl.searchParams;
 
+  // Check for authentication if accessing admin dashboard
+  if (pathname.startsWith("/admin-dashboard")) {
+    // Get the authentication token from cookies
+    const token = req.cookies.get("userData")?.value;
+
+    if (!token) {
+      // If no token exists, redirect to login page
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
+    // Continue with normal middleware processing for authenticated users
+  }
+
   // Create new URL with language prefix
   const newUrl = new URL(`/${lang}${pathname}`, req.nextUrl);
 
@@ -27,6 +40,10 @@ export async function middleware(req: NextRequest) {
   return res;
 }
 
+// Combine the original matcher with admin dashboard protection
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/admin-dashboard/:path*",
+  ],
 };

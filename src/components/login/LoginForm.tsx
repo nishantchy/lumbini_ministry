@@ -67,7 +67,13 @@ const LoginForm = () => {
         throw new Error(data.message || "Login failed");
       }
 
+      // Store in localStorage for existing functionality
       localStorage.setItem("userData", JSON.stringify(data));
+
+      // Also store in cookie for middleware
+      document.cookie = `userData=${JSON.stringify(
+        data
+      )}; path=/; max-age=86400`; // 24 hours expiry
 
       toast({
         title: "Success!",
