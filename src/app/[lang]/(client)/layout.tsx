@@ -3,6 +3,7 @@ import "../globals.css";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "सामाजिक विकास मन्‍‍त्रालय",
@@ -23,6 +24,7 @@ export default async function RootLayout({
         <Header lang={lang} />
         <Navbar lang={lang} />
         {children}
+        <Toaster />
         <Footer lang={lang} />
       </body>
     </html>

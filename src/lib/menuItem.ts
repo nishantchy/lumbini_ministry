@@ -4,7 +4,7 @@ export const menuItems: MenuItem[] = [
   {
     id: 1,
     title: {
-      en: "Homepage",
+      en: "Home",
       ne: "गृहपृष्‍ठ",
     },
     path: "/",
