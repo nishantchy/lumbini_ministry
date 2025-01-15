@@ -17,24 +17,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 
-// Define interface for translations
-interface Translations {
-  name: { en: string; ne: string };
-  email: { en: string; ne: string };
-  message: { en: string; ne: string };
-  button: { en: string; ne: string };
-  title: { en: string; ne: string };
-}
-
-// Combine translations into a single object
-const translations: Translations = {
-  name: { en: "Name", ne: "नाम" },
-  email: { en: "Email", ne: "इमेल" },
-  message: { en: "Message", ne: "संदेश" },
-  button: { en: "Send Message", ne: "सन्देश पठाउनुहोस्" },
-  title: { en: "Send Us a Message", ne: "हामीलाई सन्देश पठाउनुहोस्" },
-};
-
 const contactSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email({ message: "Invalid email address" }),
@@ -43,7 +25,7 @@ const contactSchema = z.object({
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
-export default function ContactForm({ lang }: { lang: "en" | "ne" }) {
+export default function ContactForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
@@ -94,7 +76,7 @@ export default function ContactForm({ lang }: { lang: "en" | "ne" }) {
   return (
     <section className="p-8">
       <div className="max-w-lg mx-auto p-4 bg-white shadow-md rounded-lg">
-        <h2 className="text-3xl font-bold mb-6">{translations.title[lang]}</h2>
+        <h2 className="text-3xl font-bold mb-6">Send Us a Message</h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
@@ -102,13 +84,9 @@ export default function ContactForm({ lang }: { lang: "en" | "ne" }) {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{translations.name[lang]}</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder={translations.name[lang]}
-                      {...field}
-                      disabled={isLoading}
-                    />
+                    <Input placeholder="Name" {...field} disabled={isLoading} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,11 +97,11 @@ export default function ContactForm({ lang }: { lang: "en" | "ne" }) {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{translations.email[lang]}</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder={translations.email[lang]}
+                      placeholder="Email"
                       {...field}
                       disabled={isLoading}
                     />
@@ -137,10 +115,10 @@ export default function ContactForm({ lang }: { lang: "en" | "ne" }) {
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{translations.message[lang]}</FormLabel>
+                  <FormLabel>Message</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder={translations.message[lang]}
+                      placeholder="Message"
                       {...field}
                       disabled={isLoading}
                     />
@@ -153,10 +131,10 @@ export default function ContactForm({ lang }: { lang: "en" | "ne" }) {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {translations.button[lang]}...
+                  Sending...
                 </>
               ) : (
-                translations.button[lang]
+                "Send Message"
               )}
             </Button>
           </form>
