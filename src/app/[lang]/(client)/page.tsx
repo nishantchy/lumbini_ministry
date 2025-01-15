@@ -28,8 +28,3 @@ export default function Page({ params }: PageProps) {
     </main>
   );
 }
-
-// Generate static params for prerendering
-export function generateStaticParams() {
-  return [{ lang: "en" }];
-}
