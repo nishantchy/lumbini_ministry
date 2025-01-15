@@ -16,12 +16,12 @@ const GallerySection = ({ lang }: { lang: string }) => {
     <section className="max-w-screen-xl mx-auto px-4 md:px-0 space-y-6 md:space-y-12">
       {GalleryTitle.map((title) => (
         <div key={title.id} className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-xl md:text-4xl font-bold">
             {title.title[lang as keyof typeof title.title]}
           </h1>
           <Link
             href={title.href}
-            className="text-primary hover:text-primary-400 font-semibold"
+            className="text-xs md:text-base text-primary hover:text-primary-400 font-semibold"
           >
             {title.option[lang as keyof typeof title.option]}
           </Link>
@@ -30,7 +30,7 @@ const GallerySection = ({ lang }: { lang: string }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {galleryData?.slice(0, 4).map((gallery, index) => (
-          <Card className="cursor-pointer" key={index}>
+          <Link href={`/gallery/${gallery._id}`} key={index}>
             <div className="relative aspect-video w-full overflow-hidden rounded-t-lg">
               <Image
                 src={gallery.images[0]}
@@ -52,7 +52,7 @@ const GallerySection = ({ lang }: { lang: string }) => {
                 </div>
               </div>
             </CardHeader>
-          </Card>
+          </Link>
         ))}
       </div>
     </section>

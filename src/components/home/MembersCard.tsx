@@ -20,12 +20,12 @@ const MemberCarousel = ({ lang }: { lang: string }) => {
     <section className="max-w-screen-xl mx-auto space-y-6 md:space-y-12 px-4 md:px-0">
       {MembersTitle.map((title) => (
         <div key={title.id} className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-xl md:text-4xl font-bold">
             {title.title[lang as keyof typeof title.title]}
           </h1>
           <Link
             href={title.href}
-            className="text-primary hover:text-primary-400 font-semibold"
+            className="text-xs md:text-base text-primary hover:text-primary-400 font-semibold"
           >
             {title.option[lang as keyof typeof title.option]}
           </Link>

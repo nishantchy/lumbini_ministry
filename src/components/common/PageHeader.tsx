@@ -24,6 +24,15 @@ export default function PageHeader({
   breadcrumbs,
   lang,
 }: PageHeaderProps) {
+  const MAX_TITLE_LENGTH = 20; // Define the maximum length for the title
+
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   return (
     <section
       className="relative bg-primary text-white"
@@ -51,7 +60,10 @@ export default function PageHeader({
                     />
                     <span className="relative">
                       <span className="inline-block">
-                        {breadcrumb.label[lang as keyof MultilanguageText]}
+                        {truncateText(
+                          breadcrumb.label[lang as keyof MultilanguageText],
+                          MAX_TITLE_LENGTH
+                        )}
                       </span>
                       <span className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-button transition-transform duration-300 ease-out group-hover:scale-x-100" />
                     </span>
@@ -62,7 +74,10 @@ export default function PageHeader({
                   {/* <GoDotFill className="mx-1 text-button" size={16} /> */}
                   <Link href={breadcrumb.href} className="group relative">
                     <span className="inline-block pl-5">
-                      {breadcrumb.label[lang as keyof MultilanguageText]}
+                      {truncateText(
+                        breadcrumb.label[lang as keyof MultilanguageText],
+                        MAX_TITLE_LENGTH
+                      )}
                     </span>
                     <span className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-button transition-transform duration-300 ease-out group-hover:scale-x-100" />
                   </Link>

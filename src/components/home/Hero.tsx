@@ -38,8 +38,10 @@ export default function Hero() {
             <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
             {/* Content above overlay */}
             <div className="absolute inset-0 z-20 flex items-center justify-center flex-col space-y-3 text-white bg-black bg-opacity-40">
-              <h1 className="text-2xl font-bold">{item.title}</h1>
-              <p className="max-w-screen-lg text-center">{item.description}</p>
+              <h1 className="text-base md:text-2xl font-bold">{item.title}</h1>
+              <p className="text-xs md:text-sm max-w-screen-lg text-center">
+                {item.description}
+              </p>
             </div>
           </SwiperSlide>
         ))}
