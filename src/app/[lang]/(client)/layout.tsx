@@ -10,16 +10,17 @@ type RootLayoutProps = {
   params: { lang: string };
 };
 
+// Define metadata for the page
 export const metadata: Metadata = {
-  title: "सामाजिक विकास मन्‍‍त्रालय",
+  title: "सामाजिक विकास मन्‍त्रालय",
   description: "Developed By Nishant Chaudhary",
 };
 
 export default function RootLayout({ children, params }: RootLayoutProps) {
-  const { lang } = params; // Remove await since params is not a Promise
+  const { lang } = params;
 
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body>
         <Header lang={lang} />
         <Navbar lang={lang} />
