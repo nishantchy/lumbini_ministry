@@ -5,19 +5,19 @@ import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import { Toaster } from "@/components/ui/toaster";
 
+type RootLayoutProps = {
+  children: React.ReactNode;
+  params: { lang: string };
+};
+
 export const metadata: Metadata = {
   title: "सामाजिक विकास मन्‍‍त्रालय",
   description: "Developed By Nishant Chaudhary",
 };
 
-export default async function RootLayout({
-  params,
-  children,
-}: {
-  children: React.ReactNode;
-  params: { lang: string };
-}) {
-  const { lang } = await params;
+export default function RootLayout({ children, params }: RootLayoutProps) {
+  const { lang } = params; // Remove await since params is not a Promise
+
   return (
     <html lang="en">
       <body>
@@ -29,4 +29,9 @@ export default async function RootLayout({
       </body>
     </html>
   );
+}
+
+// Optional: Generate static params if you want to prerender specific paths
+export function generateStaticParams() {
+  return [{ lang: "en" }];
 }
