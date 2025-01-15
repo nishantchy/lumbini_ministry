@@ -13,6 +13,10 @@ export function useGallery() {
   return useSWR<Gallery[]>("/api/gallery", fetcher);
 }
 
+export function useSingleGallery(_id: string) {
+  return useSWR<Gallery>(`/api/gallery/${_id}`, fetcher);
+}
+
 export function useNews() {
   return useSWR<News[]>("/api/news", fetcher);
 }
