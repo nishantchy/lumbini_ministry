@@ -7,9 +7,10 @@ import { Toaster } from "@/components/ui/toaster";
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  params: {
+  params: Promise<{
     lang: string;
-  };
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export const metadata: Metadata = {
@@ -17,8 +18,17 @@ export const metadata: Metadata = {
   description: "Developed By Nishant Chaudhary",
 };
 
-export default function RootLayout({ children, params }: RootLayoutProps) {
-  const { lang } = params;
+export default async function RootLayout({
+  children,
+  params,
+  searchParams,
+}: RootLayoutProps) {
+  const [resolvedParams, resolvedSearchParams] = await Promise.all([
+    params,
+    searchParams,
+  ]);
+
+  const { lang } = resolvedParams;
 
   return (
     <html lang={lang} suppressHydrationWarning>
@@ -34,5 +44,5 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
 }
 
 export function generateStaticParams() {
-  return [{ lang: "en" }];
+  return [{ lang: "en" }, { lang: "ne" }];
 }

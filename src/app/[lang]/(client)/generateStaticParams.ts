@@ -1,3 +1,3 @@
 export function generateStaticParams() {
-  return [{ lang: "en" }];
+  return [{ lang: "en" }, { lang: "ne" }];
 }

@@ -1,5 +1,3 @@
-"use client";
-
 import Notices from "@/components/home/Notices";
 import EventCalendar from "@/components/home/EventCalender";
 import GallerySection from "@/components/home/Gallery";
@@ -8,14 +6,19 @@ import MembersCard from "@/components/home/MembersCard";
 import NewsComponent from "@/components/home/News";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     lang: string;
-  };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export default function Page({ params }: PageProps) {
-  const { lang } = params;
+export default async function Page({ params, searchParams }: PageProps) {
+  const [resolvedParams, resolvedSearchParams] = await Promise.all([
+    params,
+    searchParams,
+  ]);
+
+  const { lang } = resolvedParams;
 
   return (
     <main className="space-y-6 md:space-y-12 lg:space-y-24 mb-20">
