@@ -5,12 +5,13 @@ import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import { Toaster } from "@/components/ui/toaster";
 
-type RootLayoutProps = {
+interface RootLayoutProps {
   children: React.ReactNode;
-  params: { lang: string };
-};
+  params: {
+    lang: string;
+  };
+}
 
-// Define metadata for the page
 export const metadata: Metadata = {
   title: "सामाजिक विकास मन्‍त्रालय",
   description: "Developed By Nishant Chaudhary",
@@ -20,7 +21,7 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
   const { lang } = params;
 
   return (
-    <html lang={lang}>
+    <html lang={lang} suppressHydrationWarning>
       <body>
         <Header lang={lang} />
         <Navbar lang={lang} />
@@ -32,7 +33,6 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
   );
 }
 
-// Optional: Generate static params if you want to prerender specific paths
 export function generateStaticParams() {
   return [{ lang: "en" }];
 }
